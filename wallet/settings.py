@@ -24,9 +24,12 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = '$46f7eye_06uic8-itdylk_mf0-+crk%ntv$of%uz@b*-)r(d*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'monopoly-wallet-sv.herokuapp.com'
+]
 
 
 # Application definition
