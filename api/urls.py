@@ -19,4 +19,11 @@ from . import views
 
 urlpatterns = [
     # path('', views.index, name='index'),
+
+    path('game/create/', views.game_create, name='game-create'),
+    path('game/join/', views.game_join, name='game-join'),
+    path('game/refresh/', views.game_refresh, name='game-refresh'),
+    path('game/transfer/', views.game_transfer, name='game-transfer'),
+    path('game/bank/', views.game_bank, name='game-bank'),
+    path('game/freeparking/', views.game_freeparking, name='game-freeparking'),
 ]

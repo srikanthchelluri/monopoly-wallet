@@ -1,6 +1,27 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-	<p>First one? Create a room.</p>
-	<p>Join a room.</p>
+<h1>Monopoly Wallet</h1>
+
+<br>
+
+<div class="ui input">
+	<input id="input-name" type="text" placeholder="Name">
+</div>
+
+<br><br><br>
+
+<button id="button-start-game" class="ui primary large button">Start a game</button>
+
+<br><br>
+
+<div class="ui action input">
+	<input id="input-join-game" type="text" placeholder="Game (e.g. 123456)">
+	<button id="button-join-game" class="ui secondary large button">Join a game</button>
+</div>
 {% endblock content %}
+
+{% block scripts %}
+<script src="{% static "js/index.js" %}"></script>
+{% endblock scripts %}

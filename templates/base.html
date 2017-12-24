@@ -3,27 +3,27 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{% block title %}uva schedule | me{% endblock %}</title>
+		<title>{% block title %}Monopoly Wallet{% endblock %}</title>
 
 		{% block stylesheets %}
-			<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+			<link href="{% static "css/semantic.min.css" %}" rel="stylesheet">
+			<link href="{% static "css/base.css" %}" rel="stylesheet">
 		{% endblock stylesheets %}
 	</head>
 
 	<body>
-		<div class="container">
-			{% block navbar %}
-			{% endblock navbar %}
-
+		<div class="ui container">
+			<center>
 			{% block content %}
 			{% endblock content %}
+			</center>
 		</div>
 
-		{% block scripts %}
-			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-			<script src="{% static "js/bootstrap.min.js" %}"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="{% static "js/semantic.min.js" %}"></script>
+		<script src="{% static "js/base.js" %}"></script>
 
-			<script src="{% static "js/base.js" %}"></script>
+		{% block scripts %}
 		{% endblock scripts %}
 	</body>
 </html>
