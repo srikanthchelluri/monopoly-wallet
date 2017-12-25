@@ -3,13 +3,13 @@
 
 {% block content %}
 <h1>Monopoly Wallet</h1>
-<h4>Game: <b>{{ gameID }}</b></h4>
+<p>Game: <b>{{ gameID }}</b></p>
+<p>Name: <b id="player"></b></p>
 
 <br>
 
 <!-- HOLDINGS -->
-<h3>Holdings (<b id="player"></b>)</h3>
-<h2 id="holdings"></h2>
+<h3>Holdings: <b id="holdings"></b></h3>
 
 <br>
 
@@ -20,29 +20,31 @@
 
 <!-- TRANSFER -->
 <h3>Transfer</h3>
-<div id="transfer-recipients" class="ui selection dropdown">
+<div id="transfer-recipients" class="ui compact selection dropdown">
 	<input type="hidden" name="recipients">
 	<i class="dropdown icon"></i>
 	<div class="default text">Recipient</div>
 	<div id="options-transfer" class="menu"></div>
 </div>
 <div class="ui input">
-	<input id="transfer-amount" type="number" placeholder="Amount">
+	<input id="transfer-amount" type="number" placeholder="Amount" style="width: 10em">
 </div>
-<button id="button-transfer" class="ui secondary button">Send</button>
+<button id="button-transfer" class="ui button">Send</button>
 
 <br><br>
 
 <!-- RECEIVE -->
 <h3>Receive</h3>
 <div class="ui input">
-	<input id="receive-amount" type="number" placeholder="Amount">
+	<input id="receive-amount" type="number" placeholder="Amount" style="width: 10em">
 </div>
-<button id="button-receive" class="ui secondary button">Receive from bank</button>
+<button id="button-receive" class="ui button">Receive from bank</button>
 
 <br><br>
 
-<button id="button-receive" class="ui secondary button">Get free parking</button>
+<!-- FREE PARKING -->
+<h3>Free parking: <b id="free-parking"></b></h3>
+<button id="button-free-parking" class="ui button">Get free parking</button>
 
 <br><br>
 
@@ -54,9 +56,6 @@
 </table>
 
 <br>
-
-<!-- FREE PARKING -->
-<h3>Free parking: <b id="free-parking"></b></h3>
 
 
 {% endblock content %}

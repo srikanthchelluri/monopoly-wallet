@@ -1,8 +1,11 @@
 $(document).ready(function() {
 	$("#button-refresh").on("click", refresh);
 	$("#button-transfer").on("click", transfer);
-
 	$('.ui.dropdown').dropdown();
+
+	$("#button-receive").on("click", receiveBank);
+
+	$("#button-free-parking").on("click", receiveFreeParking);
 
 	refresh();
 });
@@ -26,9 +29,50 @@ function transfer() {
 		if (response.status != "success") {
 			console.log("Something went wrong in transfer.");
 		}
-		// Reset values
-		$("#transfer-amount").val("");
-		$('#transfer-recipients').dropdown("restore defaults");
+	})
+	.finally(function() {
+		refresh();
+	});
+}
+
+function receiveBank() {
+	let gameID = window.location.pathname.split("/")[2];
+	let playerID = sessionStorage.getItem("playerID");
+	let amount = $("#receive-amount").val();
+
+	let bankURL = "/api/v1/game/bank/";
+	let data = {
+		"gameID": gameID,
+		"playerID": playerID,
+		"amount": amount
+	};
+
+	Promise.resolve($.post(bankURL, data))
+	.then(function(response) {
+		if (response.status != "success") {
+			console.log("Something went wrong in transfer.");
+		}
+	})
+	.finally(function() {
+		refresh();
+	});
+}
+
+function receiveFreeParking() {
+	let gameID = window.location.pathname.split("/")[2];
+	let playerID = sessionStorage.getItem("playerID");
+
+	let freeParkingURL = "/api/v1/game/freeparking/";
+	let data = {
+		"gameID": gameID,
+		"playerID": playerID
+	};
+
+	Promise.resolve($.post(freeParkingURL, data))
+	.then(function(response) {
+		if (response.status != "success") {
+			console.log("Something went wrong in transfer.");
+		}
 	})
 	.finally(function() {
 		refresh();
@@ -36,6 +80,8 @@ function transfer() {
 }
 
 function refresh() {
+	$("#button-refresh").addClass("loading disabled");
+
 	let playerID = sessionStorage.getItem("playerID");
 	let gameID = window.location.pathname.split("/")[2];
 
@@ -74,10 +120,13 @@ function refresh() {
 			});
 		}
 	})
-	.finally(function() {
-		// Reset values
+	.finally(function() { // Reset values
 		$("#transfer-amount").val("");
 		$('#transfer-recipients').dropdown("restore defaults");
+
+		$("#receive-amount").val("");
+
+		$("#button-refresh").removeClass("loading disabled");
 	});
 }
 
