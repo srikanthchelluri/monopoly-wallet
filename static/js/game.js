@@ -30,7 +30,7 @@ function transfer() {
 			console.log("Something went wrong in transfer.");
 		}
 	})
-	.finally(function() {
+	.then(function() {
 		refresh();
 	});
 }
@@ -53,7 +53,7 @@ function receiveBank() {
 			console.log("Something went wrong in transfer.");
 		}
 	})
-	.finally(function() {
+	.then(function() {
 		refresh();
 	});
 }
@@ -74,7 +74,7 @@ function receiveFreeParking() {
 			console.log("Something went wrong in transfer.");
 		}
 	})
-	.finally(function() {
+	.then(function() {
 		refresh();
 	});
 }
@@ -120,7 +120,7 @@ function refresh() {
 			});
 		}
 	})
-	.finally(function() { // Reset values
+	.then(function() { // Reset values
 		$("#transfer-amount").val("");
 		$('#transfer-recipients').dropdown("restore defaults");
 
