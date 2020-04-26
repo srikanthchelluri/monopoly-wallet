@@ -168,13 +168,24 @@ def game_transfer(request):
 
 def game_bank(request):
 	if request.method == "POST":
+		gameID = request.POST.get("gameID", "")
 		playerID = str(request.POST.get("playerID", ""))
 		amount = int(request.POST.get("amount", ""))
 
 		try:
+			game = Game.objects.get(gameID = gameID)
+
 			toPlayer = Player.objects.get(cookie = playerID)
 			toPlayer.holdings += amount
 			toPlayer.save()
+
+			transfer = Transfer(
+				game = game,
+				fromPrincipal = "Bank",
+				toPrincipal = toPlayer.name,
+				amount = amount
+			)
+			transfer.save()
 
 			return JsonResponse({
 				"status": "success",
