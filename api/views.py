@@ -60,10 +60,10 @@ def game_join(request):
 				"status": "success",
 				"data": None
 			})
-		except:
+		except Exception as e:
 			return JsonResponse({
 				"status": "error",
-				"data": None
+				"data": e
 			})
 	else:
 		return JsonResponse({
@@ -103,10 +103,10 @@ def game_refresh(request):
 					"freeParking": game.freeParking,
 				}
 			})
-		except:
+		except Exception as e:
 			return JsonResponse({
 				"status": "error",
-				"data": None
+				"data": e
 			})
 	else:
 		return JsonResponse({
@@ -155,10 +155,10 @@ def game_transfer(request):
 				"status": "success",
 				"data": None
 			})
-		except:
+		except Exception as e:
 			return JsonResponse({
 				"status": "error",
-				"data": None
+				"data": e
 			})
 	else:
 		return JsonResponse({
@@ -180,10 +180,10 @@ def game_bank(request):
 				"status": "success",
 				"data": None
 			})
-		except:
+		except Exception as e:
 			return JsonResponse({
 				"status": "error",
-				"data": None
+				"data": e
 			})
 	else:
 		return JsonResponse({
@@ -218,10 +218,10 @@ def game_freeparking(request):
 				"status": "success",
 				"data": None
 			})
-		except:
+		except Exception as e:
 			return JsonResponse({
 				"status": "error",
-				"data": None
+				"data": e
 			})
 	else:
 		return JsonResponse({
