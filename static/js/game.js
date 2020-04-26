@@ -94,7 +94,10 @@ function refresh() {
 	.then(function(response) {
 		if (response.status == "success") {
 			$("#table-players tbody tr").remove();
-			let tableBody = $("#table-players tbody");
+			let tablePlayersBody = $("#table-players tbody");
+
+			$("#table-transfers tbody tr").remove();
+			let tableTransfersBody = $("#table-transfers tbody");
 
 			$("#options-transfer div").remove();
 			let transferOptions = $("#options-transfer");
@@ -108,7 +111,7 @@ function refresh() {
 					$("#player").text(player.name);
 					$("#holdings").text(formatHoldings(player.holdings));
 				} else {
-					tableBody.append($('<tr>')
+					tablePlayersBody.append($('<tr>')
 						.append($('<td class="center aligned">').text(player.name))
 						.append($('<td class="center aligned">').text(formatHoldings(player.holdings)))
 					);
@@ -118,6 +121,14 @@ function refresh() {
 					);
 				}
 			});
+
+			response.data.transfers.forEach(function(transfer) {
+				tableTransfersBody.append($('<tr>')
+					.append($('<td class="center aligned">').text(transfer.fromPrincipal))
+					.append($('<td class="center aligned">').text(transfer.toPrincipal))
+					.append($('<td class="center aligned">').text(formatHoldings(transfer.amount)))
+				);
+			})
 		}
 	})
 	.then(function() { // Reset values
