@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from api.models import Game, Player
+from api.models import Game, Player, Transfer
 import math, random
 
 # Create your views here.
@@ -87,12 +87,20 @@ def game_refresh(request):
 					"cookie": p.cookie
 				})
 
+			transfers = [{
+					'fromPrincipal': t.fromPrincipal,
+					'toPrincipal': t.toPrincipal,
+					'amount': t.amount
+				}
+				for t in Transfer.objects.filter(game = game).order_by("-time")[:8]]
+
 			return JsonResponse({
 				"status": "success",
 				"data": {
 					"gameID": gameID,
 					"players": players,
-					"freeParking": game.freeParking
+					"transfers": transfers,
+					"freeParking": game.freeParking,
 				}
 			})
 		except:
@@ -114,20 +122,34 @@ def game_transfer(request):
 		amount = int(request.POST.get("amount", ""))
 
 		try:
+			game = Game.objects.get(gameID = gameID)
 			fromPlayer = Player.objects.get(cookie = playerID)
 			fromPlayer.holdings -= amount
 			fromPlayer.save()
 
+			transfer = Transfer(
+				game = game,
+				fromPrincipal = fromPlayer.name,
+				amount = amount
+			)
+
 			if recipientID == "-1": # Bank
-				pass
+				transfer.toPrincipal = "Bank"
+				transfer.save()
 			elif recipientID == "-2": # Free parking
 				game = Game.objects.get(gameID = gameID)
 				game.freeParking += amount
 				game.save()
+
+				transfer.toPrincipal = "Free parking"
+				transfer.save()
 			else:
 				toPlayer = Player.objects.get(cookie = recipientID)
 				toPlayer.holdings += amount
 				toPlayer.save()
+
+				transfer.toPrincipal = toPlayer.name
+				transfer.save()
 
 			return JsonResponse({
 				"status": "success",
@@ -180,6 +202,14 @@ def game_freeparking(request):
 			toPlayer = Player.objects.get(cookie = playerID)
 			toPlayer.holdings += game.freeParking
 			toPlayer.save()
+
+			transfer = Transfer(
+				game = game,
+				fromPrincipal = "Free parking",
+				toPrincipal = toPlayer.name,
+				amount = game.freeParking
+			)
+			transfer.save()
 
 			game.freeParking = 0
 			game.save()
