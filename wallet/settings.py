@@ -15,7 +15,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
 
-    'monopoly-wallet-sv.herokuapp.com',
+    'monopoly-wallet-sc.herokuapp.com',
 ]
 
 # Application definition
