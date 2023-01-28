@@ -117,6 +117,12 @@ def game_transfer(request):
         recipientID = str(request.POST.get("recipientID", ""))
         amount = int(request.POST.get("amount", ""))
 
+        if amount == 0:
+            return JsonResponse({
+                "status": "error",
+                "data": None
+            })
+
         try:
             game = Game.objects.get(gameID = gameID)
             fromPlayer = Player.objects.get(cookie = playerID)
@@ -168,6 +174,12 @@ def game_bank(request):
         playerID = str(request.POST.get("playerID", ""))
         amount = int(request.POST.get("amount", ""))
 
+        if amount == 0:
+            return JsonResponse({
+                "status": "error",
+                "data": None
+            })
+
         try:
             game = Game.objects.get(gameID = gameID)
 
@@ -205,6 +217,12 @@ def game_freeparking(request):
 
         try:
             game = Game.objects.get(gameID = gameID)
+
+            if game.freeParking == 0:
+                return JsonResponse({
+                    "status": "error",
+                    "data": None
+                })
 
             toPlayer = Player.objects.get(cookie = playerID)
             toPlayer.holdings += game.freeParking
